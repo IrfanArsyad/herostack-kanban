@@ -9,6 +9,9 @@ import {
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
+// NOTE: When integrated into HeroStack, these will be re-exported
+// The integration script will add: export { users, teams, teamMembers, plugins } from "../schema";
+
 // ==================== ENUMS ====================
 
 export const boardTypeEnum = pgEnum("kanban_board_type", ["personal", "team"]);

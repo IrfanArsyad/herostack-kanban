@@ -1,9 +1,9 @@
 import { eq, and, or } from "drizzle-orm";
-import type { BoardRole } from "../schema";
+import type { BoardRole } from "@/lib/db/schemas/kanban";
 import {
   kanbanBoards,
   kanbanBoardMembers,
-} from "../schema";
+} from "@/lib/db/schemas/kanban";
 
 /**
  * Check if a user has access to a board and their role

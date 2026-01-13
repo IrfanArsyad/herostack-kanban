@@ -159,6 +159,11 @@ print_success "Utilities → src/lib/kanban/"
 # Copy database schema
 cp "$PLUGIN_PATH/schema.ts" \
    "$HEROSTACK_PATH/src/lib/db/schemas/kanban.ts"
+
+# Add re-exports to schema file
+sed -i '/^import { relations } from "drizzle-orm";$/a\\n// Re-export tables from main schema that plugin needs\nexport { users, teams, teamMembers, plugins } from "../schema";' \
+    "$HEROSTACK_PATH/src/lib/db/schemas/kanban.ts"
+
 print_success "Schema → src/lib/db/schemas/kanban.ts"
 
 # ============================================================

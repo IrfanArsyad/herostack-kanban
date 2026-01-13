@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Settings, Plus, Users } from "lucide-react";
-import { BoardView } from "../../../components/board-view";
-import type { BoardWithRelations } from "../../../lib/types";
+import { BoardView } from "@/components/kanban/board-view";
+import type { BoardWithRelations } from "@/lib/kanban/types";
 
 export default function BoardPage() {
   const params = useParams();

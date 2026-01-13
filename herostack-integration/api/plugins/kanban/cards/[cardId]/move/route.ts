@@ -102,7 +102,7 @@ export async function POST(
         // Moving down: decrease position of cards between old and new position
         await db
           .update(kanbanCards)
-          .set({ position: db.raw("position - 1"), updatedAt: new Date() })
+          .set({ position: sql`position - 1`, updatedAt: new Date() })
           .where(
             and(
               eq(kanbanCards.columnId, columnId),
@@ -115,7 +115,7 @@ export async function POST(
         // Moving up: increase position of cards between new and old position
         await db
           .update(kanbanCards)
-          .set({ position: db.raw("position + 1"), updatedAt: new Date() })
+          .set({ position: sql`position + 1`, updatedAt: new Date() })
           .where(
             and(
               eq(kanbanCards.columnId, columnId),
@@ -131,7 +131,7 @@ export async function POST(
       // Decrease position of cards after the source position in source column
       await db
         .update(kanbanCards)
-        .set({ position: db.raw("position - 1"), updatedAt: new Date() })
+        .set({ position: sql`position - 1`, updatedAt: new Date() })
         .where(
           and(
             eq(kanbanCards.columnId, sourceColumnId),
@@ -143,7 +143,7 @@ export async function POST(
       // Increase position of cards at or after target position in target column
       await db
         .update(kanbanCards)
-        .set({ position: db.raw("position + 1"), updatedAt: new Date() })
+        .set({ position: sql`position + 1`, updatedAt: new Date() })
         .where(
           and(
             eq(kanbanCards.columnId, columnId),

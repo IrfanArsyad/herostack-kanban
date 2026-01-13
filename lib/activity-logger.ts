@@ -3,7 +3,7 @@
  * Utilities for logging board and card activities
  */
 
-import { kanbanActivities, type ActivityType } from "../schema";
+import { kanbanActivities, type ActivityType } from "@/lib/db/schemas/kanban";
 
 /**
  * Log an activity to the kanban_activities table

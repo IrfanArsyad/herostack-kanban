@@ -15,7 +15,7 @@ import type {
   BoardRole,
   CardPriority,
   ActivityType,
-} from "../schema";
+} from "@/lib/db/schemas/kanban";
 
 // Re-export schema types
 export type {

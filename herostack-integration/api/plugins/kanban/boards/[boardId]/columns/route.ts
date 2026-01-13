@@ -81,7 +81,7 @@ export async function POST(
       await db
         .update(kanbanColumns)
         .set({
-          position: db.raw(`position + 1`),
+          position: sql`position + 1`,
         })
         .where(
           and(
@@ -122,10 +122,19 @@ export async function POST(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ boardId: string; columnId: string }> }
+  { params }: { params: Promise<{ boardId: string }> }
 ) {
   try {
-    const { boardId, columnId } = await params;
+    const { boardId } = await params;
+    const { searchParams } = new URL(request.url);
+    const columnId = searchParams.get("columnId");
+
+    if (!columnId) {
+      return NextResponse.json(
+        { error: "columnId query parameter is required" },
+        { status: 400 }
+      );
+    }
 
     // 1. Check authentication
     const session = await auth();
@@ -200,10 +209,19 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ boardId: string; columnId: string }> }
+  { params }: { params: Promise<{ boardId: string }> }
 ) {
   try {
-    const { boardId, columnId } = await params;
+    const { boardId } = await params;
+    const { searchParams } = new URL(request.url);
+    const columnId = searchParams.get("columnId");
+
+    if (!columnId) {
+      return NextResponse.json(
+        { error: "columnId query parameter is required" },
+        { status: 400 }
+      );
+    }
 
     // 1. Check authentication
     const session = await auth();
