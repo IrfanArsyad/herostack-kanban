@@ -1,0 +1,35 @@
+{
+  "id": "herostack-kanban",
+  "name": "Kanban Board",
+  "version": "1.0.0",
+  "description": "Advanced Kanban board system with real-time collaboration, team support, and powerful card features for task management",
+  "author": "HeroStack Team",
+  "homepage": "https://github.com/yourusername/herostack-kanban",
+  "repository": "https://github.com/yourusername/herostack-kanban",
+  "license": "MIT",
+  "menuItems": [
+    {
+      "title": "Kanban Boards",
+      "href": "/kanban/boards"
+    },
+    {
+      "title": "Templates",
+      "href": "/kanban/templates"
+    }
+  ],
+  "settings": {
+    "enableRealtime": true,
+    "maxAttachmentSize": 10485760,
+    "allowedFileTypes": ["image/*", "application/pdf", ".doc", ".docx", ".txt"],
+    "enableComments": true,
+    "enableMentions": true
+  },
+  "permissions": [
+    "teams:read",
+    "users:read"
+  ],
+  "database": {
+    "schema": "schema.ts",
+    "migrations": "migrations/"
+  }
+}

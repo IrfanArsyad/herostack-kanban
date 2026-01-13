@@ -1,0 +1,64 @@
+{
+  "name": "herostack-kanban",
+  "version": "1.0.0",
+  "description": "Kanban board plugin for HeroStack with real-time collaboration",
+  "main": "schema.ts",
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "build": "npm run build:zip",
+    "build:zip": "zip -r herostack-kanban.zip plugin.json schema.ts lib/ README.md LICENSE INSTALL.md INTEGRATION-GUIDE.md -x '*.git*' 'node_modules/*' '.claude/*' '*.zip'",
+    "build:full": "zip -r herostack-kanban-full.zip . -x '*.git*' 'node_modules/*' '.claude/*' '*.zip'",
+    "integrate": "./integrate.sh",
+    "dev": "echo 'Use: npm run integrate /path/to/herostack'"
+  },
+  "keywords": [
+    "herostack",
+    "plugin",
+    "kanban",
+    "task-management",
+    "collaboration",
+    "trello-alternative",
+    "project-management"
+  ],
+  "author": "HeroStack Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "next": "^15",
+    "drizzle-orm": "^0.45",
+    "@dnd-kit/core": "^6.3",
+    "@dnd-kit/sortable": "^10.0",
+    "@dnd-kit/utilities": "^3.2",
+    "lucide-react": "*"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.8",
+    "typescript": "^5",
+    "@types/node": "^22",
+    "@types/react": "^19"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/herostack-kanban.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/herostack-kanban/issues"
+  },
+  "homepage": "https://github.com/yourusername/herostack-kanban#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "plugin.json",
+    "schema.ts",
+    "lib/**/*",
+    "herostack-integration/**/*",
+    "README.md",
+    "LICENSE",
+    "INSTALL.md",
+    "INTEGRATION-GUIDE.md",
+    "integrate.sh"
+  ]
+}
