@@ -21,31 +21,73 @@ Advanced Kanban board system for HeroStack with real-time collaboration, team su
 
 ## Installation
 
-**IMPORTANT:** HeroStack plugins require manual code integration. This is not a one-click install.
-
-### Quick Start
+### ⚡ One-Command Installation (Recommended)
 
 ```bash
-# 1. Download plugin
+# 1. Clone plugin repository
 git clone https://github.com/yourusername/herostack-kanban.git
 cd herostack-kanban
 
-# 2. Integrate into HeroStack
-./integrate.sh /path/to/your/herostack
+# 2. Run automated integration script
+./integrate-auto.sh /path/to/your/herostack
 
-# 3. Follow the manual steps shown by the script
-
-# 4. Rebuild HeroStack
+# 3. Done! Start your dev server
 cd /path/to/your/herostack
-bun drizzle-kit generate
-bun drizzle-kit migrate
-bun run build
-
-# 5. Upload plugin ZIP for registration
-# Go to Admin → Plugins and upload herostack-kanban.zip
+bun run dev
 ```
 
-**Detailed guide:** See [INTEGRATION-GUIDE.md](INTEGRATION-GUIDE.md)
+The automated script will:
+- ✅ Copy all plugin files to correct locations
+- ✅ Fix import paths automatically
+- ✅ Update database schema
+- ✅ Generate and run migrations
+- ✅ Register plugin in database
+- ✅ Install dependencies
+- ✅ Create backup of existing files
+
+**No manual steps required!** 🎉
+
+### Updating the Plugin
+
+```bash
+cd herostack-kanban
+./update.sh /path/to/your/herostack
+```
+
+### Uninstalling
+
+```bash
+cd herostack-kanban
+./uninstall.sh /path/to/your/herostack
+```
+
+**Note:** Uninstall removes files but keeps database tables and data intact.
+
+---
+
+**Alternative:** For step-by-step manual integration, see [INTEGRATION-GUIDE.md](INTEGRATION-GUIDE.md)
+
+---
+
+### 🐳 Docker Deployment
+
+For Docker/containerized deployments:
+
+```bash
+# Production (build into image)
+./integrate-docker.sh /path/to/herostack build
+cd /path/to/herostack
+docker-compose build
+docker-compose up -d
+
+# Development (integrate into running container)
+docker-compose up -d
+./integrate-docker.sh /path/to/herostack dev
+```
+
+**Complete Docker guide:** See [DOCKER.md](DOCKER.md)
+
+---
 
 ## Usage
 

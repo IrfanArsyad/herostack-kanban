@@ -1,0 +1,79 @@
+# Stage 1: Dependencies
+FROM oven/bun:1-alpine AS deps
+WORKDIR /app
+
+# Copy package files
+COPY package.json bun.lock ./
+
+# Install dependencies
+RUN bun install --frozen-lockfile
+
+# Stage 2: Builder
+FROM oven/bun:1-alpine AS builder
+WORKDIR /app
+
+# Copy dependencies from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+
+# ============================================================
+# PLUGIN INTEGRATION - Copy plugin files before source
+# ============================================================
+
+# Install required tools for integration
+RUN apk add --no-cache bash sed
+
+# Copy plugin source
+COPY herostack-kanban /tmp/herostack-kanban
+
+# ============================================================
+
+# Copy application source
+COPY . .
+
+# ============================================================
+# Run plugin integration script
+# ============================================================
+RUN cd /tmp/herostack-kanban && \
+    chmod +x integrate-auto.sh && \
+    ./integrate-auto.sh /app --skip-confirm && \
+    cd /app && \
+    bun install
+# ============================================================
+
+# Set environment variables for build
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# Build the application (with plugin integrated)
+RUN bun run build
+
+# Stage 3: Runner
+FROM oven/bun:1-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Install wget for healthcheck
+RUN apk add --no-cache wget
+
+# Create non-root user for security
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copy necessary files from builder
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+# Create uploads directory
+RUN mkdir -p /app/public/uploads && chown -R nextjs:nodejs /app
+
+USER nextjs
+
+EXPOSE 3056
+
+ENV PORT=3056
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["bun", "server.js"]

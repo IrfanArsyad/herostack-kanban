@@ -7,10 +7,16 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "build": "npm run build:zip",
-    "build:zip": "zip -r herostack-kanban.zip plugin.json schema.ts lib/ README.md LICENSE INSTALL.md INTEGRATION-GUIDE.md -x '*.git*' 'node_modules/*' '.claude/*' '*.zip'",
+    "build:zip": "zip -r herostack-kanban.zip plugin.json schema.ts lib/ herostack-integration/ README.md LICENSE INSTALL.md QUICKSTART.md INTEGRATION-GUIDE.md DOCKER.md Dockerfile.with-plugin -x '*.git*' 'node_modules/*' '.claude/*' '*.zip'",
     "build:full": "zip -r herostack-kanban-full.zip . -x '*.git*' 'node_modules/*' '.claude/*' '*.zip'",
-    "integrate": "./integrate.sh",
-    "dev": "echo 'Use: npm run integrate /path/to/herostack'"
+    "install:auto": "./integrate-auto.sh",
+    "install:manual": "./integrate.sh",
+    "docker:build": "./integrate-docker.sh",
+    "docker:dev": "./integrate-docker.sh",
+    "update": "./update.sh",
+    "uninstall": "./uninstall.sh",
+    "postinstall": "chmod +x integrate-auto.sh integrate.sh integrate-docker.sh update.sh uninstall.sh",
+    "help": "cat QUICKSTART.md"
   },
   "keywords": [
     "herostack",
